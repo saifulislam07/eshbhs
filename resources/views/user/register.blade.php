@@ -3,7 +3,23 @@
 @section('meta-keywords', "$seo->meta_keywords")
 @section('meta-description', "$seo->meta_description")
 @section('content')
+    <style>
+        .some-class {
+            float: left;
+            clear: none;
+        }
 
+        fieldset {
+            overflow: hidden
+        }
+
+        input[type=radio],
+        input.radio {
+            float: left;
+            clear: none;
+            margin: 2px 0 0 2px;
+        }
+    </style>
     <!--Main Breadcrumb Area Start -->
     <div class="page-title-area"
         style="background-image: url('{{ asset('assets/front/img/' . $setting->breadcrumb_image) }}')">
@@ -38,20 +54,23 @@
                                 {{ __('Register your account to continue.') }}
                             </p>
                         </div>
-                        <form class="" action="{{ route('user.register.submit') }}" method="POST">
+                        <form class="" action="{{ route('user.register.submit') }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
 
                             <div class="input-group">
                                 <div class="col-md-6 mt-2">
-                                    <input class="form-control" type="text" value="{{ old('name') }}" name="name"
-                                        placeholder="{{ __('Enter Full Name') }}">
+                                    <input style="border: 1px dotted rgb(239, 14, 14)" class="form-control" type="text"
+                                        value="{{ old('name') }}" name="name"
+                                        placeholder="{{ __('Enter name as per your certificate') }}">
                                     @if ($errors->has('name'))
                                         <p class="m-1 text-danger">{{ $errors->first('name') }}</p>
                                     @endif
                                 </div>
                                 <div class="col-md-6 mt-2">
-                                    <input class="form-control" type="text" value="{{ old('username') }}"
-                                        name="username" placeholder="{{ __('Enter Username') }}">
+                                    <input class="form-control" style="border: 1px dotted rgb(239, 14, 14)" type="text"
+                                        value="{{ old('username') }}" name="username"
+                                        placeholder="{{ __('Enter Username') }}">
                                     @if ($errors->has('username'))
                                         <p class="m-1 text-danger">{{ $errors->first('username') }}</p>
                                     @endif
@@ -62,7 +81,41 @@
 
                             <div class="input-group">
                                 <div class="col-md-6 mt-2">
-                                    <input class="form-control" type="text" value="{{ old('phone') }}" name="username"
+                                    <input class="form-control" style="border: 1px dotted rgb(239, 14, 14)" type="text"
+                                        value="{{ old('fathersname') }}" name="fathersname"
+                                        placeholder="{{ __('Enter Fathers Name') }}">
+                                    @if ($errors->has('fathersname'))
+                                        <p class="m-1 text-danger">{{ $errors->first('fathersname') }}</p>
+                                    @endif
+                                </div>
+                                <div class="col-md-6 mt-2">
+                                    <input class="form-control" type="text" value="{{ old('mathersname') }}"
+                                        name="mathersname" placeholder="{{ __('Enter Mothers Name') }}">
+                                    @if ($errors->has('mathersname'))
+                                        <p class="m-1 text-danger">{{ $errors->first('mathersname') }}</p>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <div class="col-md-6 mt-2">
+                                    <input class="form-control" style="border: 1px dotted rgb(239, 14, 14)" type="text"
+                                        name="village" placeholder="{{ __('Enter Village') }}">
+                                    @if ($errors->has('village'))
+                                        <p class="m-1 text-danger">{{ $errors->first('village') }}</p>
+                                    @endif
+                                </div>
+                                <div class="col-md-6 mt-2">
+                                    <input class="form-control" style="border: 1px dotted rgb(239, 14, 14)" type="text"
+                                        name="occupation" placeholder="{{ __('Enter Occupation') }}">
+                                    @if ($errors->has('occupation'))
+                                        <p class="m-1 text-danger">{{ $errors->first('occupation') }}</p>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <div class="col-md-6 mt-2">
+                                    <input class="form-control" style="border: 1px dotted rgb(239, 14, 14)" type="text"
+                                        value="{{ old('phone') }}" name="phone"
                                         placeholder="{{ __('Enter Mobile Number') }}">
                                     @if ($errors->has('phone'))
                                         <p class="m-1 text-danger">{{ $errors->first('phone') }}</p>
@@ -70,7 +123,7 @@
                                 </div>
                                 <div class="col-md-6 mt-2">
                                     <input class="form-control" type="text" value="{{ old('alterphone') }}"
-                                        name="username" placeholder="{{ __('Enter Alternative Mobile number') }}">
+                                        name="alterphone" placeholder="{{ __('Enter Alternative Mobile number') }}">
                                     @if ($errors->has('alterphone'))
                                         <p class="m-1 text-danger">{{ $errors->first('alterphone') }}</p>
                                     @endif
@@ -78,24 +131,40 @@
                             </div>
                             <div class="input-group">
                                 <div class="col-md-6 mt-2">
+                                    <fieldset>
+                                        <div class="some-class">
+                                            <input type="radio" class="radio" name="gender" value="Male"
+                                                id="y" checked />
+                                            <label for="y"
+                                                style=" float: left; clear: none;display: block;padding: 0px 1em 0px 8px; margin-top: 18px;">
+                                                Male</label>
+                                            <input type="radio" class="radio" name="gender" value="Femele"
+                                                id="z" />
+                                            <label for="z"
+                                                style=" float: left; clear: none; display: block; padding: 0px 1em 0px 8px; margin-top: 18px;">
+                                                Femele</label>
+                                        </div>
+                                    </fieldset>
+
+
+                                    @if ($errors->has('gender'))
+                                        <p class="m-1 text-danger">{{ $errors->first('gender') }}</p>
+                                    @endif
+                                </div>
+                                <div class="col-md-6 mt-2">
                                     <input class="form-control" type="file" name="profilepic"
                                         value="{{ old('profilepic') }}">
                                     @if ($errors->has('profilepic'))
                                         <p class="m-1 text-danger">{{ $errors->first('profilepic') }}</p>
                                     @endif
                                 </div>
-                                <div class="col-md-6 mt-2">
-                                    <input autocomplete="off" class="form-control" type="url" name="facebook"
-                                        value="{{ old('facebook') }}"
-                                        placeholder="{{ __('Enter Facebook  Profile Link') }}">
-                                    @if ($errors->has('facebook'))
-                                        <p class="m-1 text-danger">{{ $errors->first('facebook') }}</p>
-                                    @endif
-                                </div>
+
                             </div>
+
                             <div class="input-group">
                                 <div class="col-md-6 mt-2">
-                                    <select name="bloodgroup" id="" class="form-control ">
+                                    <select name="bloodgroup" style="border: 1px dotted rgb(239, 14, 14)" id=""
+                                        class="form-control ">
                                         <option value="" selected disabled>Select Blood Group</option>
                                         <option value="A+">A+</option>
                                         <option value="B+">B+</option>
@@ -112,7 +181,8 @@
                                     </select>
                                 </div>
                                 <div class="col-md-6 mt-2">
-                                    <select name="sscyear" id="" class="form-control ">
+                                    <select name="sscyear" style="border: 1px dotted rgb(239, 14, 14)" id=""
+                                        class="form-control ">
                                         <option value="" selected disabled>Select SSC Year</option>
                                         @php
                                             
@@ -131,31 +201,42 @@
 
                             <div class="input-group">
                                 <div class="col-md-6 mt-2">
+                                    <input autocomplete="off" class="form-control" type="url" name="facebook"
+                                        value="{{ old('facebook') }}"
+                                        placeholder="{{ __('Enter Facebook  Profile Link') }}">
+                                    @if ($errors->has('facebook'))
+                                        <p class="m-1 text-danger">{{ $errors->first('facebook') }}</p>
+                                    @endif
+                                </div>
+                                <div class="col-md-6 mt-2">
 
-                                    <input autocomplete="off" class="form-control" type="email" name="email"
-                                        value="{{ old('email') }}" placeholder="{{ __('Enter Email') }}">
+                                    <input autocomplete="off" style="border: 1px dotted rgb(239, 14, 14)"
+                                        class="form-control" type="email" name="email" value="{{ old('email') }}"
+                                        placeholder="{{ __('Enter Email') }}">
                                     @if ($errors->has('email'))
                                         <p class="m-1 text-danger">{{ $errors->first('email') }}</p>
                                     @endif
 
                                 </div>
-                                <div class="col-md-6 mt-2"></div>
+
                             </div>
                             <div class="input-group">
                                 <div class="col-md-6 mt-2">
-                                    <input class="form-control" type="password" name="password"
-                                        placeholder="{{ __('Enter Password') }}">
+                                    <input class="form-control" style="border: 1px dotted rgb(239, 14, 14)"
+                                        type="password" name="password" placeholder="{{ __('Enter Password') }}">
                                     @if ($errors->has('password'))
                                         <p class="m-1 text-danger">{{ $errors->first('password') }}</p>
                                     @endif
                                 </div>
                                 <div class="col-md-6 mt-2">
-                                    <input class="form-control" type="password" name="password_confirmation"
+                                    <input class="form-control" style="border: 1px dotted rgb(239, 14, 14)"
+                                        type="password" name="password_confirmation"
                                         placeholder="{{ __('Confirm Password') }}">
                                 </div>
                             </div>
+
                             <div class="input-group">
-                                <div class="col-md-6 mt-2">
+                                <div class="col-md-6 mt-2 offset-md-4">
                                     @if ($visibility->is_recaptcha == 1)
                                         <div class="d-block my-4">
                                             {!! NoCaptcha::renderJs() !!}

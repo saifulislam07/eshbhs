@@ -99,7 +99,7 @@
     <!--====== footer PART ENDS ======-->
 
     {{-- Quick Call Area  Start --}}
-    <div class="quick_call_area">
+    <div class="quick_call_area no-print">
 
         @if ($visibility->is_call_button == 1)
             @php

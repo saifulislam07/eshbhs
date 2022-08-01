@@ -1,4 +1,4 @@
-<header class="header-two header-full-width sticky-header">
+<header class="header-two header-full-width sticky-header no-print">
     <div class="header-topbar">
         <div class="container-fluid container-1470">
             <div class="row align-items-center justify-content-between">
@@ -10,7 +10,8 @@
         <div class="container-fluid mainmenu-wrapper container-1470 d-flex align-items-center justify-content-between">
             <div class="header-left">
                 <div class="site-logo">
-                    <a href="<?php echo e(route('front.index')); ?>"><img src="<?php echo e(asset('assets/front/img/'.$setting->header_logo )); ?>" alt="Omnivus"></a>
+                    <a href="<?php echo e(route('front.index')); ?>"><img
+                            src="<?php echo e(asset('assets/front/img/' . $setting->header_logo)); ?>" alt="Omnivus"></a>
                 </div>
             </div>
             <div class="header-right d-flex align-items-center justify-content-end">
@@ -18,4 +19,5 @@
             </div>
         </div>
     </div>
-</header><?php /**PATH E:\officeserver\htdocs\eshbhs\resources\views/front/partials/menu/menu2.blade.php ENDPATH**/ ?>
+</header>
+<?php /**PATH E:\officeserver\htdocs\eshbhs\resources\views/front/partials/menu/menu2.blade.php ENDPATH**/ ?>

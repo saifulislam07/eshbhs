@@ -1,17 +1,15 @@
-@extends('front.layout')
+<?php $__env->startSection('meta-keywords', "$seo->meta_keywords"); ?>
+<?php $__env->startSection('meta-description', "$seo->meta_description"); ?>
 
-@section('meta-keywords', "$seo->meta_keywords")
-@section('meta-description', "$seo->meta_description")
-
-@section('style')
+<?php $__env->startSection('style'); ?>
     <!-- DataTable css -->
-    <link rel="stylesheet" href="{{ asset('assets/admin/plugins/data-table/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/admin/plugins/data-table/responsive.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/admin/plugins/data-table/buttons.bootstrap4.min.css') }}">
-@endsection
-@section('content')
+    <link rel="stylesheet" href="<?php echo e(asset('assets/admin/plugins/data-table/dataTables.bootstrap4.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('assets/admin/plugins/data-table/responsive.bootstrap4.min.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('assets/admin/plugins/data-table/buttons.bootstrap4.min.css')); ?>">
+<?php $__env->stopSection(); ?>
+<?php $__env->startSection('content'); ?>
     <style>
-        @media print {
+        @media  print {
 
             .no-print,
             .no-print * {
@@ -21,16 +19,16 @@
     </style>
     <!--Main Breadcrumb Area Start -->
     <div class="page-title-area no-print"
-        style="background-image: url('{{ asset('assets/front/img/' . $setting->breadcrumb_image) }}')">
+        style="background-image: url('<?php echo e(asset('assets/front/img/' . $setting->breadcrumb_image)); ?>')">
         <div class="overlay"></div>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-title-item text-center">
-                        <h2 class="title">{{ __('Dashboard') }}</h2>
+                        <h2 class="title"><?php echo e(__('Dashboard')); ?></h2>
                         <ul class="breadcrumb-nav">
-                            <li class=""><a href="{{ route('front.index') }}">{{ __('Home') }} </a></li>
-                            <li class="active" aria-current="page">{{ __('Dashboard') }}</li>
+                            <li class=""><a href="<?php echo e(route('front.index')); ?>"><?php echo e(__('Home')); ?> </a></li>
+                            <li class="active" aria-current="page"><?php echo e(__('Dashboard')); ?></li>
                         </ul>
                     </div> <!-- page title -->
                 </div>
@@ -45,7 +43,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 no-print">
-                    @includeif('user.dashboard-sidenav')
+                    <?php if ($__env->exists('user.dashboard-sidenav')) echo $__env->make('user.dashboard-sidenav', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                 </div>
                 <div class="col-lg-9 ">
 
@@ -58,64 +56,65 @@
                                     <td colspan="2" class="user-info">
                                         <img class="mb-3 show-img img-demo"
                                             src="
-    @if (Auth::user()->profilepic) {{ asset('profile/' . Auth::user()->profilepic) }}
-    @else
-    {{ asset('assets/admin/img/img-demo.jpg') }} @endif"
+    <?php if(Auth::user()->profilepic): ?> <?php echo e(asset('profile/' . Auth::user()->profilepic)); ?>
+
+    <?php else: ?>
+    <?php echo e(asset('assets/admin/img/img-demo.jpg')); ?> <?php endif; ?>"
                                             alt="">
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>Member ID</th>
-                                    <td>{{ str_pad(Auth::user()->id, 4, '0', STR_PAD_LEFT) }}</td>
+                                    <td><?php echo e(str_pad(Auth::user()->id, 4, '0', STR_PAD_LEFT)); ?></td>
                                 </tr>
                                 <tr>
                                     <th>Name</th>
-                                    <td>{{ Auth::user()->name }}</td>
+                                    <td><?php echo e(Auth::user()->name); ?></td>
                                 </tr>
                                 <tr>
                                     <th>User Name</th>
-                                    <td>{{ Auth::user()->username }}</td>
+                                    <td><?php echo e(Auth::user()->username); ?></td>
                                 </tr>
                                 <tr>
                                     <th>Email</th>
-                                    <td>{{ Auth::user()->email }}</td>
+                                    <td><?php echo e(Auth::user()->email); ?></td>
                                 </tr>
 
                                 <tr>
                                     <th>Gender</th>
-                                    <td>{{ Auth::user()->gender }}</td>
+                                    <td><?php echo e(Auth::user()->gender); ?></td>
                                 </tr>
                                 <tr>
                                     <th>Phone Number</th>
-                                    <td>{{ Auth::user()->phone }}</td>
+                                    <td><?php echo e(Auth::user()->phone); ?></td>
                                 </tr>
                                 <tr>
                                     <th>Alternate Number</th>
-                                    <td>{{ Auth::user()->alterphone }}</td>
+                                    <td><?php echo e(Auth::user()->alterphone); ?></td>
                                 </tr>
                                 <tr>
                                     <th>SSC Year</th>
-                                    <td>{{ Auth::user()->sscyear }}</td>
+                                    <td><?php echo e(Auth::user()->sscyear); ?></td>
                                 </tr>
                                 <tr>
                                     <th>Father's Name</th>
-                                    <td>{{ Auth::user()->fathersname }}</td>
+                                    <td><?php echo e(Auth::user()->fathersname); ?></td>
                                 </tr>
                                 <tr>
                                     <th>Mather's Name</th>
-                                    <td>{{ Auth::user()->mathersname }}</td>
+                                    <td><?php echo e(Auth::user()->mathersname); ?></td>
                                 </tr>
                                 <tr>
                                     <th>Village</th>
-                                    <td>{{ Auth::user()->village }}</td>
+                                    <td><?php echo e(Auth::user()->village); ?></td>
                                 </tr>
                                 <tr>
                                     <th>Blood Group</th>
-                                    <td>{{ Auth::user()->bloodgroup }}</td>
+                                    <td><?php echo e(Auth::user()->bloodgroup); ?></td>
                                 </tr>
                                 <tr>
                                     <th>Occupation</th>
-                                    <td>{{ Auth::user()->occupation }}</td>
+                                    <td><?php echo e(Auth::user()->occupation); ?></td>
                                 </tr>
                             </table>
                         </div>
@@ -133,7 +132,7 @@
         <div class="modal-dialog modal-xl" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">{{ __('View Order Details') }}</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle"><?php echo e(__('View Order Details')); ?></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -147,25 +146,27 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-sm"
-                        data-dismiss="modal">{{ __('Close') }}</button>
+                        data-dismiss="modal"><?php echo e(__('Close')); ?></button>
                 </div>
             </div>
         </div>
     </div>
 
-@endsection
+<?php $__env->stopSection(); ?>
 
-@section('script')
+<?php $__env->startSection('script'); ?>
     <!-- DataTable js -->
-    <script src="{{ asset('assets/admin/plugins/data-table/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('assets/admin/plugins/data-table/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('assets/admin/plugins/data-table/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('assets/admin/plugins/data-table/responsive.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('assets/admin/plugins/data-table/dataTables.buttons.min.js') }}"></script>
-    <script src="{{ asset('assets/admin/plugins/data-table/buttons.bootstrap4.min.js') }}"></script>
+    <script src="<?php echo e(asset('assets/admin/plugins/data-table/jquery.dataTables.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/admin/plugins/data-table/dataTables.bootstrap4.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/admin/plugins/data-table/dataTables.responsive.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/admin/plugins/data-table/responsive.bootstrap4.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/admin/plugins/data-table/dataTables.buttons.min.js')); ?>"></script>
+    <script src="<?php echo e(asset('assets/admin/plugins/data-table/buttons.bootstrap4.min.js')); ?>"></script>
 
     <script>
         $(".data_table").DataTable();
     </script>
 
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('front.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\officeserver\htdocs\eshbhs\resources\views/user/dashboard.blade.php ENDPATH**/ ?>

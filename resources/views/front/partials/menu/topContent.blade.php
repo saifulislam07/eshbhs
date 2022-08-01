@@ -1,4 +1,4 @@
-<div class="col-sm-auto col-12">
+<div class="col-sm-auto col-12 no-print">
     <div class="top-left-content">
         <div class="language-change">
             <p
@@ -19,7 +19,8 @@ text-white
 text-white
             @endif
             ">
-                <i class="fas fa-globe-americas"></i>{{ $currentLang->name }}</p>
+                <i class="fas fa-globe-americas"></i>{{ $currentLang->name }}
+            </p>
             <div class="language-menu">
                 @foreach ($langs as $lang)
                     <a href="{{ route('changeLanguage', $lang->code) }}"

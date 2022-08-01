@@ -1,4 +1,4 @@
-<div class="col-sm-auto col-12">
+<div class="col-sm-auto col-12 no-print">
     <div class="top-left-content">
         <div class="language-change">
             <p
@@ -19,7 +19,9 @@ text-white
 text-white
             <?php endif; ?>
             ">
-                <i class="fas fa-globe-americas"></i><?php echo e($currentLang->name); ?></p>
+                <i class="fas fa-globe-americas"></i><?php echo e($currentLang->name); ?>
+
+            </p>
             <div class="language-menu">
                 <?php $__currentLoopData = $langs; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $lang): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <a href="<?php echo e(route('changeLanguage', $lang->code)); ?>"

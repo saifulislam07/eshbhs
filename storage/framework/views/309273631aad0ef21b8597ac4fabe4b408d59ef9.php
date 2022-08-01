@@ -3,7 +3,7 @@ $links = json_decode($menus, true);
 //  dd($links);
 ?>
 
-<div class="site-nav-menu">
+<div class="site-nav-menu no-print">
     <ul class="primary-menu">
 
         <?php

@@ -100,7 +100,7 @@
     <!--====== footer PART ENDS ======-->
 
     
-    <div class="quick_call_area">
+    <div class="quick_call_area no-print">
 
         <?php if($visibility->is_call_button == 1): ?>
             <?php
