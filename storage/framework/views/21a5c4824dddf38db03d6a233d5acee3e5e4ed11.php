@@ -6,6 +6,7 @@
     <?php else: ?>
     <?php echo e(asset('assets/admin/img/img-demo.jpg')); ?> <?php endif; ?>"
         alt="">
+    <h5><a href=""> <?php echo e('@' . Auth::user()->username); ?></a></h5>
     <h4><?php echo e(Auth::user()->name); ?></h4>
 </div>
 <div class="user-menu">

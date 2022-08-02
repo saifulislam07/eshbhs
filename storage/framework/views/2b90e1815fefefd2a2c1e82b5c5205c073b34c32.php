@@ -64,7 +64,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Member ID</th>
+                                    <th width="30%">Member ID</th>
                                     <td><?php echo e(str_pad(Auth::user()->id, 4, '0', STR_PAD_LEFT)); ?></td>
                                 </tr>
                                 <tr>
@@ -73,7 +73,9 @@
                                 </tr>
                                 <tr>
                                     <th>User Name</th>
-                                    <td><?php echo e(Auth::user()->username); ?></td>
+                                    <td>
+                                        <h6><a href=""> <?php echo e('@' . Auth::user()->username); ?></a></h6>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <th>Email</th>

@@ -5,6 +5,7 @@
     @else
     {{ asset('assets/admin/img/img-demo.jpg') }} @endif"
         alt="">
+    <h5><a href=""> {{ '@' . Auth::user()->username }}</a></h5>
     <h4>{{ Auth::user()->name }}</h4>
 </div>
 <div class="user-menu">

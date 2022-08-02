@@ -51,15 +51,14 @@ class RegisterController extends Controller
             'username' => 'required:string|max:25|unique:users,username',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8|confirmed',
-            'phone' => 'required',
+            'phone' => 'required|unique:users,phone',
             'occupation' => 'required',
             'fathersname' => 'required',
             'village' => 'required',
             'gender' => 'required',
             'bloodgroup' => 'required',
             'sscyear' => 'required',
-            'password' => 'required',
-            'password' => 'required',
+
         ]);
 
         $visibility = Visibility::first();
@@ -82,7 +81,7 @@ class RegisterController extends Controller
                 'profilepic' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1024',
             ]);
             $image = $request->file('profilepic');
-            $name = $request->username . '.' . $image->getClientOriginalExtension();
+            $name = $request->username . time() . rand() . '.' . $image->getClientOriginalExtension();
             $destinationPath = public_path('/profile');
             $image->move($destinationPath, $name);
         }

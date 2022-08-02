@@ -14,67 +14,82 @@ use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
-        public function index()
+    public function index()
     {
         $data['orders'] = Order::where('user_id', Auth::user()->id)->orderBy('created_at', 'DESC')->get();
 
         return view('user.dashboard', $data);
     }
 
-    public function editprofile(){
+    public function editprofile()
+    {
         return view('user.editprofile');
     }
 
-    public function updateprofile(Request $request, $id){
-     
+    public function updateprofile(Request $request, $id)
+    {
+
 
         $user = User::where('id', $id)->first();
         $request->validate([
-            'image' => 'mimes:jpeg,jpg,png',
-            'name' => 'required:string|max:60',
-            'phone'=> 'required|numeric',
-            'zipcode'=> 'required|numeric',
-            'address'=> 'required|max:150',
-            'country'=> 'required|max:50',
-            'state'=> 'required|max:50',
-            'email'=> 'required|max:50',
+            'profilepic' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1024',
+            // 'username' => 'required:string|max:25|unique:users,username',
+            'name' => 'required',
+            //'phone' => 'required|unique:users,phone',
+            'fathersname' => 'required',
+            'occupation' => 'required',
+            'village' => 'required',
+            'gender' => 'required',
+            'bloodgroup' => 'required',
+            'sscyear' => 'required',
+            // 'email' => 'required|unique:users,email',
         ]);
 
-        if($request->hasFile('image')){
-            @unlink('assets/front/img/'. $user->image);
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $image = time().rand().'.'.$extension;
-            $file->move('assets/front/img/', $image);
 
-            $user->image = $image;
+
+
+        if ($request->hasFile('profilepic')) {
+            @unlink('profile/' . $user->profilepic);
+            $file = $request->file('profilepic');
+            $extension = $file->getClientOriginalExtension();
+            $image = $request->username . time() . rand() . '.' . $extension;
+            $file->move('profile/', $image);
+
+            $user->profilepic = $image;
         }
 
         $user->name = $request->name;
+        $user->username = $request->username;
+        $user->fathersname = $request->fathersname;
+        $user->mathersname = $request->mathersname;
+        $user->village = $request->village;
+        $user->occupation = $request->occupation;
         $user->phone = $request->phone;
-        $user->zipcode = $request->zipcode;
-        $user->address = $request->address;
-        $user->country = $request->country;
-        $user->state = $request->state;
+        $user->alterphone = $request->alterphone;
+        $user->gender = $request->gender;
+        $user->bloodgroup = $request->bloodgroup;
+        $user->sscyear = $request->sscyear;
+        $user->facebook = $request->facebook;
         $user->email = $request->email;
         $user->save();
 
 
         Session::flash('success', 'Profile updated successfully!');
         return redirect()->back();
-
     }
 
 
-    public function change_password(){
+    public function change_password()
+    {
         return view('user.change-password');
     }
 
-    public function update_password(Request $request, $id){
+    public function update_password(Request $request, $id)
+    {
 
         $user = User::where('id', $id)->first();
 
-     
+
 
         $messages = [
             'password.required' => 'The new password field is required',
@@ -85,17 +100,17 @@ class UserController extends Controller
             'password' => 'required|confirmed'
         ], $messages);
 
-        if(Hash::check($request->old_password, $user->password)) {
+        if (Hash::check($request->old_password, $user->password)) {
             $oldPassMatch = 'matched';
         } else {
             $oldPassMatch = 'not_matched';
         }
-        if ($validator->fails() || $oldPassMatch=='not_matched') {
-            if($oldPassMatch == 'not_matched') {
-              $validator->errors()->add('oldPassMatch', true);
+        if ($validator->fails() || $oldPassMatch == 'not_matched') {
+            if ($oldPassMatch == 'not_matched') {
+                $validator->errors()->add('oldPassMatch', true);
             }
             return redirect()->route('user.change_password')
-                        ->withErrors($validator);
+                ->withErrors($validator);
         }
 
 
@@ -103,10 +118,9 @@ class UserController extends Controller
         $user->save();
 
 
-     
+
         Session::flash('success', 'User password updated successfully!');
         return redirect()->back();
-
     }
     public function logout()
     {
@@ -118,21 +132,22 @@ class UserController extends Controller
     public function orderDetails($id)
     {
         $order = Order::findOrFail($id);
-        return view('user.order.details',compact('order'));
+        return view('user.order.details', compact('order'));
     }
 
-    public function product_order(){
+    public function product_order()
+    {
 
         $orders = Order::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
 
         return view('user.order.index', compact('orders'));
     }
 
-    public function downloadable(){
+    public function downloadable()
+    {
 
         $orders = Order::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
 
         return view('user.downloadable', compact('orders'));
     }
-
 }
