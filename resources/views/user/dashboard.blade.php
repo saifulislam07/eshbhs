@@ -58,7 +58,7 @@
                                     <td colspan="2" class="user-info">
                                         <img class="mb-3 show-img img-demo"
                                             src="
-    @if (Auth::user()->profilepic) {{ asset('profile/' . Auth::user()->profilepic) }}
+    @if (Auth::user()->profilepic) {{ asset('profilepic/' . Auth::user()->profilepic) }}
     @else
     {{ asset('assets/admin/img/img-demo.jpg') }} @endif"
                                             alt="">

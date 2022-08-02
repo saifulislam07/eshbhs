@@ -49,11 +49,11 @@ class UserController extends Controller
 
 
         if ($request->hasFile('profilepic')) {
-            @unlink('profile/' . $user->profilepic);
+            @unlink('profilepic/' . $user->profilepic);
             $file = $request->file('profilepic');
             $extension = $file->getClientOriginalExtension();
             $image = $request->username . time() . rand() . '.' . $extension;
-            $file->move('profile/', $image);
+            $file->move('profilepic/', $image);
 
             $user->profilepic = $image;
         }

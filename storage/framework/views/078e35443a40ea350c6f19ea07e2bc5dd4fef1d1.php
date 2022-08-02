@@ -62,7 +62,7 @@
                                                         <div class="img">
                                                             <img class="mb-3 show-img img-demo"
                                                                 src="
-                                              <?php if(Auth::user()->profilepic): ?> <?php echo e(asset('profile/' . Auth::user()->profilepic)); ?>
+                                              <?php if(Auth::user()->profilepic): ?> <?php echo e(asset('profilepic/' . Auth::user()->profilepic)); ?>
 
                                               <?php else: ?>
                                               <?php echo e(asset('assets/admin/img/img-demo.jpg')); ?> <?php endif; ?>"
