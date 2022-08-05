@@ -31,18 +31,20 @@ class UserController extends Controller
 
 
         $user = User::where('id', $id)->first();
+
         $request->validate([
             'profilepic' => 'image|mimes:jpeg,png,jpg,gif,svg|max:1024',
-            // 'username' => 'required:string|max:25|unique:users,username',
+            'username' => 'required|unique:users,username,' . $user->id,
+            'email' => 'required|unique:users,email,' . $user->id,
             'name' => 'required',
-            //'phone' => 'required|unique:users,phone',
+            'phone' => 'required|unique:users,phone,' . $user->id,
             'fathersname' => 'required',
             'occupation' => 'required',
             'village' => 'required',
             'gender' => 'required',
             'bloodgroup' => 'required',
             'sscyear' => 'required',
-            // 'email' => 'required|unique:users,email',
+
         ]);
 
 
