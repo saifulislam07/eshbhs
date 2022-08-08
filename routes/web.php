@@ -25,18 +25,19 @@ Route::get('login', function () {
  Front Routes
 =======================================================*/
 
+
 Route::group(['middleware' => 'setlang'], function () {
 
     Route::get('/', 'Front\FrontendController@index')->name('front.index');
-    
+
     $permalink = Permalink::first();
 
     Route::get("$permalink->faq_slug", 'Front\FrontendController@faq')->name('front.faq');
     Route::get("$permalink->about_slug", 'Front\FrontendController@about')->name('front.about');
     Route::get("$permalink->service_slug", 'Front\FrontendController@service')->name('front.service');
-    Route::get("$permalink->service_slug".'/{slug}', 'Front\FrontendController@service_details')->name('front.service.details');
+    Route::get("$permalink->service_slug" . '/{slug}', 'Front\FrontendController@service_details')->name('front.service.details');
     Route::get("$permalink->portfolio_slug", 'Front\FrontendController@portfolio')->name('front.portfolio');
-    Route::get("$permalink->portfolio_slug".'/{slug}', 'Front\FrontendController@portfolio_details')->name('front.portfolio.details');
+    Route::get("$permalink->portfolio_slug" . '/{slug}', 'Front\FrontendController@portfolio_details')->name('front.portfolio.details');
     Route::get("$permalink->package_slug", 'Front\FrontendController@package')->name('front.package');
     Route::get("$permalink->gallery_slug", 'Front\FrontendController@gallery')->name('front.gallery');
 
@@ -45,14 +46,13 @@ Route::group(['middleware' => 'setlang'], function () {
     Route::get('cart/header/load/ajax', 'Front\ProductController@headerCartLoad')->name('header.cart.load');
     Route::get('cart/qty/get/ajax', 'Front\ProductController@cartQtyGet')->name('cart.qty.get');
     Route::get("$permalink->product_slug", 'Front\ProductController@index')->name('front.products');
-    Route::get("$permalink->product_slug".'/{slug}', 'Front\ProductController@product_details')->name('front.product.details');
+    Route::get("$permalink->product_slug" . '/{slug}', 'Front\ProductController@product_details')->name('front.product.details');
     Route::get("$permalink->cart_slug", 'Front\ProductController@cart')->name('front.cart');
     Route::get('/add-to-cart/{id}', 'Front\ProductController@addToCart')->name('add.cart');
     Route::post('/cart/update', 'Front\ProductController@updatecart')->name('cart.update');
     Route::get('/cart/item/remove/{id}', 'Front\ProductController@cartitemremove')->name('cart.item.remove');
     Route::get("$permalink->checkout_slug", 'Front\ProductController@checkout')->name('front.checkout');
-    Route::get("$permalink->checkout_slug".'/{slug}', 'Front\ProductController@Prdouctcheckout')->name('front.product.checkout');
-
+    Route::get("$permalink->checkout_slug" . '/{slug}', 'Front\ProductController@Prdouctcheckout')->name('front.product.checkout');
 
     // Checkou
 
@@ -69,7 +69,7 @@ Route::group(['middleware' => 'setlang'], function () {
 
     Route::post('/sslcommerz/notify', 'Payment\SslCommerzController@notify')->name('front.sslcommerz.notify');
     Route::post('/sslcommerz/submit', 'Payment\SslCommerzController@store')->name('front.sslcommerz.submit');
-  
+
     //Paypal Routes
 
     Route::post('/product/paypal/submit', 'Payment\Product\PaypalController@store')->name('product.paypal.submit');
@@ -94,7 +94,7 @@ Route::group(['middleware' => 'setlang'], function () {
 
 
     Route::get("$permalink->career_slug", 'Front\FrontendController@career')->name('front.career');
-    Route::get("$permalink->career_slug".'/{slug}', 'Front\FrontendController@careerdetails')->name('front.careerdetails');
+    Route::get("$permalink->career_slug" . '/{slug}', 'Front\FrontendController@careerdetails')->name('front.careerdetails');
     Route::get('/slider/ovarla', 'Admin\SettingController@slider_overlay')->name('front.slider_overlay');
     Route::post('/slider/ovarla', 'Admin\SettingController@slider_o_update')->name('front.slider.overlay.submit');
     Route::post('/job/apply/submit', 'Front\FrontendController@job_apply')->name('job.apply.submit');
@@ -103,7 +103,7 @@ Route::group(['middleware' => 'setlang'], function () {
     Route::post('/quot/submit', 'Front\FrontendController@quote_submit')->name('front.quote_submit');
 
     Route::get("$permalink->team_slug", 'Front\FrontendController@team')->name('front.team');
-    Route::get("$permalink->team_slug".'/{id}', 'Front\FrontendController@team_details')->name('front.team_details');
+    Route::get("$permalink->team_slug" . '/{id}', 'Front\FrontendController@team_details')->name('front.team_details');
 
     Route::get("$permalink->contact_slug", 'Front\FrontendController@contact')->name('front.contact');
     Route::post('/contact/submit', 'Front\FrontendController@contactSubmit')->name('front.contact.submit');
@@ -113,17 +113,19 @@ Route::group(['middleware' => 'setlang'], function () {
 
     // Blog route
     Route::get("$permalink->blog_slug", 'Front\FrontendController@blogs')->name('front.blogs');
-    Route::get("$permalink->blog_slug".'/{slug}', 'Front\FrontendController@blogdetails')->name('front.blogdetails');
+    Route::get("$permalink->blog_slug" . '/{slug}', 'Front\FrontendController@blogdetails')->name('front.blogdetails');
 
     Route::get('/changelanguage/{lang}', 'Front\FrontendController@changeLanguage')->name('changeLanguage');
     Route::get('/changecurrency/{currId}', 'Front\FrontendController@changeCurrency')->name('changeCurrency');
 
     // Product Review Route
-    Route::post('review/submit','Front\ProductReviewController@reviewSubmit')->name('front.review.submit');
+    Route::post('review/submit', 'Front\ProductReviewController@reviewSubmit')->name('front.review.submit');
 
 
     // ***************************** USER ROUTE START ***************************************//
     Route::group(['prefix' => 'user'], function () {
+
+        Route::get('/check_username', 'User\RegisterController@check_username')->name('user.check_username');
 
         Route::get('/login', 'User\LoginController@showLoginForm')->name('user.login');
         Route::post('/login/submit', 'User\LoginController@login')->name('user.login.submit');
@@ -158,8 +160,6 @@ Route::group(['middleware' => 'setlang'], function () {
         Route::get('/product-orders', 'User\UserController@product_order')->name('user.product.order');
         Route::get('/downloadable', 'User\UserController@downloadable')->name('user.product.downloadable');
         Route::get('/order/details/{id}', 'User\UserController@orderDetails')->name('user.order.details');
-
-
     });
     // ***************************** USER ROUTE END ***************************************//
 
@@ -187,7 +187,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin', 'checkstatus']
     Route::get('/profile/password/edit', 'Admin\ProfileController@editPassword')->name('admin.editPassword');
     Route::post('/profile/password/update', 'Admin\ProfileController@updatePassword')->name('admin.updatePassword');
 
-    Route::get('bulk/deletes','Admin\BulkDeleteController@bulkDelete')->name('back.bulk.delete');
+    Route::get('bulk/deletes', 'Admin\BulkDeleteController@bulkDelete')->name('back.bulk.delete');
 
 
     Route::group(['middleware' => 'checkpermission:Website Customization'], function () {
@@ -200,12 +200,12 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin', 'checkstatus']
         Route::get('/menu', 'Admin\MenuController@index')->name('admin.menu.index');
         Route::post('/menu/update', 'Admin\MenuController@update')->name('admin.menu.update');
 
-        
+
         // Permalink Route
         Route::get('/permalinks', 'Admin\PermalinkController@permalinks')->name('admin.permalinks.index');
         Route::post('/permalinks/update', 'Admin\PermalinkController@permalinksUpdate')->name('admin.permalinks.update');
 
- 
+
         // SEO Information Route
         Route::get('/seoinfo', 'Admin\SettingController@seoinfo')->name('admin.seoinfo');
         Route::post('/seoinfo/update/{id}', 'Admin\SettingController@updateSeoinfo')->name('admin.setting.updateSeoinfo');
@@ -217,7 +217,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin', 'checkstatus']
         Route::get('/slinks/edit/{id}/', 'Admin\SocialController@editSlinks')->name('admin.editSlinks');
         Route::post('/slinks/delete/{id}/', 'Admin\SocialController@deleteSlinks')->name('admin.deleteSlinks');
 
-     
+
         // Page Visibility  Title Route
         Route::get('/page-visibility', 'Admin\SettingController@pagevisibility')->name('admin.pagevisibility');
 
@@ -230,7 +230,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin', 'checkstatus']
         Route::post('/page-visibility/update/theme7', 'Admin\SettingController@updatepagevisibilityh7')->name('admin.pagevisibilityh7.update');
         Route::post('/page-visibility/update/theme8', 'Admin\SettingController@updatepagevisibilityh8')->name('admin.pagevisibilityh8.update');
         Route::post('/page-visibility/update/theme9', 'Admin\SettingController@updatepagevisibilityh9')->name('admin.pagevisibilityh9.update');
-        
+
         Route::get('/page-visibility/theme1', 'Admin\SettingController@pvh1')->name('admin.pagevisibility.pvh1');
         Route::get('/page-visibility/theme2', 'Admin\SettingController@pvh2')->name('admin.pagevisibility.pvh2');
         Route::get('/page-visibility/theme3', 'Admin\SettingController@pvh3')->name('admin.pagevisibility.pvh3');
@@ -247,7 +247,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin', 'checkstatus']
         Route::post('/page-visibility/update/innerpage', 'Admin\SettingController@update_innerpage_visibility')->name('admin.innerpage_visibility.update');
         Route::post('/page-visibility/update/others', 'Admin\SettingController@update_others_visibility')->name('admin.update_others_visibility.update');
 
-        
+
 
         // Admin Cookie Alert Routes
         Route::get('/announcement', 'Admin\SettingController@announcement')->name('admin.announcement.index');
@@ -280,7 +280,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin', 'checkstatus']
         Route::post('/sitemap/store', 'Admin\SitemapController@store')->name('admin.sitemap.store');
         Route::post('/sitemap/{id}/delete', 'Admin\SitemapController@delete')->name('admin.sitemap.delete');
         Route::post('/sitemap/download', 'Admin\SitemapController@download')->name('admin.sitemap.download');
-
     });
 
     Route::group(['middleware' => 'checkpermission:General Setting'], function () {
@@ -312,7 +311,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin', 'checkstatus']
         // Admin Announcement Routes
         Route::get('/cookie-alert', 'Admin\SettingController@cookiealert')->name('admin.cookie.alert');
         Route::post('/cookie-alert/update/{langid}/', 'Admin\SettingController@updatecookie')->name('admin.cookie.update');
-
     });
 
     Route::group(['middleware' => 'checkpermission:Home'], function () {
@@ -340,7 +338,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin', 'checkstatus']
         Route::post('/ecommerce/banner/update/{id}', 'Admin\EcommerceController@bannerUpdate')->name('admin.ecommerce.bannerUpdate');
 
 
-        
+
 
         // Hero Static Version
         Route::get('/hero/static/', 'Admin\HeroController@index')->name('admin.hero.index');
@@ -490,10 +488,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin', 'checkstatus']
         Route::get('/portfolio/edit/{id}/', 'Admin\PortfolioController@edit')->name('admin.portfolio.edit');
         Route::post('/portfolio/update/{id}/', 'Admin\PortfolioController@update')->name('admin.portfolio.update');
         Route::get('portfolio/get/categoty/{id}', 'Admin\PortfolioController@portfolio_get_category')->name('admin.portfolio.portfolio_get_category');
-
-
-
-
     });
 
 
@@ -575,7 +569,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin', 'checkstatus']
         Route::post('/product/product-category/delete/{id}/', 'Admin\ProductCategoryController@delete')->name('admin.product.category.delete');
         Route::get('/product/product-category/edit/{id}/', 'Admin\ProductCategoryController@edit')->name('admin.product.category.edit');
         Route::post('/product/product-category/update/{id}/', 'Admin\ProductCategoryController@update')->name('admin.product.category.update');
-        
+
         Route::post('/product/product-category/popular', 'Admin\ProductCategoryController@makePopular')->name('admin.product.category.makePopular');
         Route::post('/product/product-category/featured', 'Admin\ProductCategoryController@makeFeatured')->name('admin.product.category.makeFeatured');
 

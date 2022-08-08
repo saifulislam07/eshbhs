@@ -1,8 +1,6 @@
-@extends('front.layout')
-
-@section('meta-keywords', "$seo->meta_keywords")
-@section('meta-description', "$seo->meta_description")
-@section('content')
+<?php $__env->startSection('meta-keywords', "$seo->meta_keywords"); ?>
+<?php $__env->startSection('meta-description', "$seo->meta_description"); ?>
+<?php $__env->startSection('content'); ?>
 
     <style>
         .some-class {
@@ -23,16 +21,16 @@
     </style>
     <!--Main Breadcrumb Area Start -->
     <div class="page-title-area"
-        style="background-image: url('{{ asset('assets/front/img/' . $setting->breadcrumb_image) }}')">
+        style="background-image: url('<?php echo e(asset('assets/front/img/' . $setting->breadcrumb_image)); ?>')">
         <div class="overlay"></div>
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-title-item text-center">
-                        <h2 class="title">{{ __('Register') }}</h2>
+                        <h2 class="title"><?php echo e(__('Register')); ?></h2>
                         <ul class="breadcrumb-nav">
-                            <li class=""><a href="{{ route('front.index') }}">{{ __('Home') }} </a></li>
-                            <li class="active" aria-current="page">{{ __('Register') }}</li>
+                            <li class=""><a href="<?php echo e(route('front.index')); ?>"><?php echo e(__('Home')); ?> </a></li>
+                            <li class="active" aria-current="page"><?php echo e(__('Register')); ?></li>
                         </ul>
                     </div> <!-- page title -->
                 </div>
@@ -49,35 +47,37 @@
                     <div class="sign-form">
                         <div class="heading">
                             <h4 class="title">
-                                {{ __('Register') }}
+                                <?php echo e(__('Register')); ?>
+
                             </h4>
                             <p class="subtitle">
-                                {{ __('Register your account to continue.') }}
+                                <?php echo e(__('Register your account to continue.')); ?>
+
                             </p>
                         </div>
-                        <form class="" action="{{ route('user.register.submit') }}" method="POST"
+                        <form class="" action="<?php echo e(route('user.register.submit')); ?>" method="POST"
                             enctype="multipart/form-data">
-                            @csrf
+                            <?php echo csrf_field(); ?>
 
                             <div class="input-group">
                                 <div class="col-md-6 mt-2">
                                     <input style="border: 1px dotted rgb(239, 14, 14)" class="form-control" type="text"
-                                        value="{{ old('name') }}" name="name"
-                                        placeholder="{{ __('Enter name as per your certificate') }}">
-                                    @if ($errors->has('name'))
-                                        <p class="m-1 text-danger">{{ $errors->first('name') }}</p>
-                                    @endif
+                                        value="<?php echo e(old('name')); ?>" name="name"
+                                        placeholder="<?php echo e(__('Enter name as per your certificate')); ?>">
+                                    <?php if($errors->has('name')): ?>
+                                        <p class="m-1 text-danger"><?php echo e($errors->first('name')); ?></p>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="col-md-6 mt-2">
                                     <input class="form-control username" onkeyup="usernamevalidation(this.value)"
                                         style="border: 1px dotted rgb(239, 14, 14)" type="text"
-                                        value="{{ old('username') }}" name="username"
-                                        placeholder="{{ __('Enter Username') }}">
+                                        value="<?php echo e(old('username')); ?>" name="username"
+                                        placeholder="<?php echo e(__('Enter Username')); ?>">
                                     <span style="color: red; display: none" id="usernamecheck">User Name Already
                                         Exist</span>
-                                    @if ($errors->has('username'))
-                                        <p class="m-1 text-danger">{{ $errors->first('username') }}</p>
-                                    @endif
+                                    <?php if($errors->has('username')): ?>
+                                        <p class="m-1 text-danger"><?php echo e($errors->first('username')); ?></p>
+                                    <?php endif; ?>
                                 </div>
                             </div>
 
@@ -86,51 +86,51 @@
                             <div class="input-group">
                                 <div class="col-md-6 mt-2">
                                     <input class="form-control" style="border: 1px dotted rgb(239, 14, 14)" type="text"
-                                        value="{{ old('fathersname') }}" name="fathersname"
-                                        placeholder="{{ __('Enter Fathers Name') }}">
-                                    @if ($errors->has('fathersname'))
-                                        <p class="m-1 text-danger">{{ $errors->first('fathersname') }}</p>
-                                    @endif
+                                        value="<?php echo e(old('fathersname')); ?>" name="fathersname"
+                                        placeholder="<?php echo e(__('Enter Fathers Name')); ?>">
+                                    <?php if($errors->has('fathersname')): ?>
+                                        <p class="m-1 text-danger"><?php echo e($errors->first('fathersname')); ?></p>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="col-md-6 mt-2">
-                                    <input class="form-control" type="text" value="{{ old('mathersname') }}"
-                                        name="mathersname" placeholder="{{ __('Enter Mothers Name') }}">
-                                    @if ($errors->has('mathersname'))
-                                        <p class="m-1 text-danger">{{ $errors->first('mathersname') }}</p>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="input-group">
-                                <div class="col-md-6 mt-2">
-                                    <input class="form-control" style="border: 1px dotted rgb(239, 14, 14)" type="text"
-                                        name="village" placeholder="{{ __('Enter Village') }}">
-                                    @if ($errors->has('village'))
-                                        <p class="m-1 text-danger">{{ $errors->first('village') }}</p>
-                                    @endif
-                                </div>
-                                <div class="col-md-6 mt-2">
-                                    <input class="form-control" style="border: 1px dotted rgb(239, 14, 14)" type="text"
-                                        name="occupation" placeholder="{{ __('Enter Occupation') }}">
-                                    @if ($errors->has('occupation'))
-                                        <p class="m-1 text-danger">{{ $errors->first('occupation') }}</p>
-                                    @endif
+                                    <input class="form-control" type="text" value="<?php echo e(old('mathersname')); ?>"
+                                        name="mathersname" placeholder="<?php echo e(__('Enter Mothers Name')); ?>">
+                                    <?php if($errors->has('mathersname')): ?>
+                                        <p class="m-1 text-danger"><?php echo e($errors->first('mathersname')); ?></p>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <div class="input-group">
                                 <div class="col-md-6 mt-2">
                                     <input class="form-control" style="border: 1px dotted rgb(239, 14, 14)" type="text"
-                                        value="{{ old('phone') }}" name="phone"
-                                        placeholder="{{ __('Enter Mobile Number') }}">
-                                    @if ($errors->has('phone'))
-                                        <p class="m-1 text-danger">{{ $errors->first('phone') }}</p>
-                                    @endif
+                                        name="village" placeholder="<?php echo e(__('Enter Village')); ?>">
+                                    <?php if($errors->has('village')): ?>
+                                        <p class="m-1 text-danger"><?php echo e($errors->first('village')); ?></p>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="col-md-6 mt-2">
-                                    <input class="form-control" type="text" value="{{ old('alterphone') }}"
-                                        name="alterphone" placeholder="{{ __('Enter Alternative Mobile number') }}">
-                                    @if ($errors->has('alterphone'))
-                                        <p class="m-1 text-danger">{{ $errors->first('alterphone') }}</p>
-                                    @endif
+                                    <input class="form-control" style="border: 1px dotted rgb(239, 14, 14)" type="text"
+                                        name="occupation" placeholder="<?php echo e(__('Enter Occupation')); ?>">
+                                    <?php if($errors->has('occupation')): ?>
+                                        <p class="m-1 text-danger"><?php echo e($errors->first('occupation')); ?></p>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <div class="col-md-6 mt-2">
+                                    <input class="form-control" style="border: 1px dotted rgb(239, 14, 14)" type="text"
+                                        value="<?php echo e(old('phone')); ?>" name="phone"
+                                        placeholder="<?php echo e(__('Enter Mobile Number')); ?>">
+                                    <?php if($errors->has('phone')): ?>
+                                        <p class="m-1 text-danger"><?php echo e($errors->first('phone')); ?></p>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="col-md-6 mt-2">
+                                    <input class="form-control" type="text" value="<?php echo e(old('alterphone')); ?>"
+                                        name="alterphone" placeholder="<?php echo e(__('Enter Alternative Mobile number')); ?>">
+                                    <?php if($errors->has('alterphone')): ?>
+                                        <p class="m-1 text-danger"><?php echo e($errors->first('alterphone')); ?></p>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                             <div class="input-group">
@@ -151,16 +151,16 @@
                                     </fieldset>
 
 
-                                    @if ($errors->has('gender'))
-                                        <p class="m-1 text-danger">{{ $errors->first('gender') }}</p>
-                                    @endif
+                                    <?php if($errors->has('gender')): ?>
+                                        <p class="m-1 text-danger"><?php echo e($errors->first('gender')); ?></p>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="col-md-6 mt-2">
                                     <input class="form-control" type="file" name="profilepic"
-                                        value="{{ old('profilepic') }}">
-                                    @if ($errors->has('profilepic'))
-                                        <p class="m-1 text-danger">{{ $errors->first('profilepic') }}</p>
-                                    @endif
+                                        value="<?php echo e(old('profilepic')); ?>">
+                                    <?php if($errors->has('profilepic')): ?>
+                                        <p class="m-1 text-danger"><?php echo e($errors->first('profilepic')); ?></p>
+                                    <?php endif; ?>
                                 </div>
 
                             </div>
@@ -179,47 +179,47 @@
                                         <option value="AB-">AB-</option>
                                         <option value="O-">O-</option>
                                         <option value="0">Unknown</option>
-                                        @if ($errors->has('bloodgroup'))
-                                            <p class="m-1 text-danger">{{ $errors->first('bloodgroup') }}</p>
-                                        @endif
+                                        <?php if($errors->has('bloodgroup')): ?>
+                                            <p class="m-1 text-danger"><?php echo e($errors->first('bloodgroup')); ?></p>
+                                        <?php endif; ?>
                                     </select>
                                 </div>
                                 <div class="col-md-6 mt-2">
                                     <select name="sscyear" style="border: 1px dotted rgb(239, 14, 14)" id=""
                                         class="form-control ">
                                         <option value="" selected disabled>Select SSC Year</option>
-                                        @php
+                                        <?php
                                             
                                             for ($i = 0; $i <= 70; $i++) {
                                                 $year = date('Y', strtotime("last day of +$i year")) - 70;
                                                 echo "<option name='$year'>$year</option>";
                                             }
-                                        @endphp
+                                        ?>
                                     </select>
 
-                                    @if ($errors->has('sscyear'))
-                                        <p class="m-1 text-danger">{{ $errors->first('sscyear') }}</p>
-                                    @endif
+                                    <?php if($errors->has('sscyear')): ?>
+                                        <p class="m-1 text-danger"><?php echo e($errors->first('sscyear')); ?></p>
+                                    <?php endif; ?>
                                 </div>
                             </div>
 
                             <div class="input-group">
                                 <div class="col-md-6 mt-2">
                                     <input autocomplete="off" class="form-control" type="url" name="facebook"
-                                        value="{{ old('facebook') }}"
-                                        placeholder="{{ __('Enter Facebook  Profile Link') }}">
-                                    @if ($errors->has('facebook'))
-                                        <p class="m-1 text-danger">{{ $errors->first('facebook') }}</p>
-                                    @endif
+                                        value="<?php echo e(old('facebook')); ?>"
+                                        placeholder="<?php echo e(__('Enter Facebook  Profile Link')); ?>">
+                                    <?php if($errors->has('facebook')): ?>
+                                        <p class="m-1 text-danger"><?php echo e($errors->first('facebook')); ?></p>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="col-md-6 mt-2">
 
                                     <input autocomplete="off" style="border: 1px dotted rgb(239, 14, 14)"
-                                        class="form-control" type="email" name="email" value="{{ old('email') }}"
-                                        placeholder="{{ __('Enter Email') }}">
-                                    @if ($errors->has('email'))
-                                        <p class="m-1 text-danger">{{ $errors->first('email') }}</p>
-                                    @endif
+                                        class="form-control" type="email" name="email" value="<?php echo e(old('email')); ?>"
+                                        placeholder="<?php echo e(__('Enter Email')); ?>">
+                                    <?php if($errors->has('email')): ?>
+                                        <p class="m-1 text-danger"><?php echo e($errors->first('email')); ?></p>
+                                    <?php endif; ?>
 
                                 </div>
 
@@ -227,38 +227,40 @@
                             <div class="input-group">
                                 <div class="col-md-6 mt-2">
                                     <input class="form-control" style="border: 1px dotted rgb(239, 14, 14)"
-                                        type="password" name="password" placeholder="{{ __('Enter Password') }}">
-                                    @if ($errors->has('password'))
-                                        <p class="m-1 text-danger">{{ $errors->first('password') }}</p>
-                                    @endif
+                                        type="password" name="password" placeholder="<?php echo e(__('Enter Password')); ?>">
+                                    <?php if($errors->has('password')): ?>
+                                        <p class="m-1 text-danger"><?php echo e($errors->first('password')); ?></p>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="col-md-6 mt-2">
                                     <input class="form-control" style="border: 1px dotted rgb(239, 14, 14)"
                                         type="password" name="password_confirmation"
-                                        placeholder="{{ __('Confirm Password') }}">
+                                        placeholder="<?php echo e(__('Confirm Password')); ?>">
                                 </div>
                             </div>
 
                             <div class="input-group">
                                 <div class="col-md-6 mt-2 offset-md-4">
-                                    @if ($visibility->is_recaptcha == 1)
+                                    <?php if($visibility->is_recaptcha == 1): ?>
                                         <div class="d-block my-4">
-                                            {!! NoCaptcha::renderJs() !!}
-                                            {!! NoCaptcha::display() !!}
-                                            @if ($errors->has('g-recaptcha-response'))
-                                                @php
+                                            <?php echo NoCaptcha::renderJs(); ?>
+
+                                            <?php echo NoCaptcha::display(); ?>
+
+                                            <?php if($errors->has('g-recaptcha-response')): ?>
+                                                <?php
                                                     $errmsg = $errors->first('g-recaptcha-response');
-                                                @endphp
-                                                <p class="text-danger mb-0">{{ __("$errmsg") }}</p>
-                                            @endif
+                                                ?>
+                                                <p class="text-danger mb-0"><?php echo e(__("$errmsg")); ?></p>
+                                            <?php endif; ?>
                                         </div>
-                                    @endif
+                                    <?php endif; ?>
                                 </div>
                             </div>
 
-                            <button class="main-btn checkbutton" type="submit">{{ __('Create Account') }}</button>
-                            <p class="reg-text text-center mb-0">{{ __('Already have an acocunt?') }} <a
-                                    href="{{ route('user.login') }}">{{ __('Login') }}</a></p>
+                            <button class="main-btn checkbutton" type="submit"><?php echo e(__('Create Account')); ?></button>
+                            <p class="reg-text text-center mb-0"><?php echo e(__('Already have an acocunt?')); ?> <a
+                                    href="<?php echo e(route('user.login')); ?>"><?php echo e(__('Login')); ?></a></p>
                         </form>
                     </div>
                 </div>
@@ -269,11 +271,11 @@
         <script type="text/javascript">
             function usernamevalidation(username) {
                 $.ajax({
-                    "url": "{{ route('user.check_username') }}",
+                    "url": "<?php echo e(route('user.check_username')); ?>",
                     "type": "GET",
                     cache: false,
                     data: {
-                        // "_token": "{{ csrf_token() }}",
+                        // "_token": "<?php echo e(csrf_token()); ?>",
                         username: username
                     },
                     success: function(data) {
@@ -295,4 +297,6 @@
 
         <!-- Register Area End -->
 
-    @endsection
+    <?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('front.layout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH E:\officeserver\htdocs\eshbhs\resources\views/user/register.blade.php ENDPATH**/ ?>

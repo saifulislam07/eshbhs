@@ -40,6 +40,16 @@ class RegisterController extends Controller
         return view('user.register');
     }
 
+
+    public function check_username(Request $request)
+    {
+        //  dd($request->username);
+
+        $uservalidation =  User::where('username', '=', $request->input('username'))->first();
+        if (!empty($uservalidation)) {
+            return 1;
+        }
+    }
     public function register(Request $request)
     {
 
@@ -61,19 +71,19 @@ class RegisterController extends Controller
 
         ]);
 
-        // $visibility = Visibility::first();
+        $visibility = Visibility::first();
 
-        // if ($visibility->is_recaptcha == 1) {
-        //     $messages = [
-        //         'g-recaptcha-response.required' => 'Please verify that you are not a robot.',
-        //         'g-recaptcha-response.captcha' => 'Captcha error! try again later or contact site admin.',
-        //     ];
-        // }
+        if ($visibility->is_recaptcha == 1) {
+            $messages = [
+                'g-recaptcha-response.required' => 'Please verify that you are not a robot.',
+                'g-recaptcha-response.captcha' => 'Captcha error! try again later or contact site admin.',
+            ];
+        }
 
-        // if ($visibility->is_recaptcha == 1) {
-        //     $rules['g-recaptcha-response'] = 'required|captcha';
-        //     $request->validate($rules, $messages);
-        // }
+        if ($visibility->is_recaptcha == 1) {
+            $rules['g-recaptcha-response'] = 'required|captcha';
+            $request->validate($rules, $messages);
+        }
 
 
         if ($request->hasFile('profilepic')) {
