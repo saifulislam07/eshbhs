@@ -41,6 +41,8 @@ class RegisterController extends Controller
     }
 
 
+
+
     public function check_username(Request $request)
     {
         //  dd($request->username);

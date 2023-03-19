@@ -139,7 +139,13 @@ Route::group(['middleware' => 'setlang'], function () {
 
         Route::get('/change-password', 'User\UserController@change_password')->name('user.change_password');
         Route::post('/update-password/{id}', 'User\UserController@update_password')->name('user.update_password');
+        // season 2023 registration
+        Route::get('/onlineregistration2023', 'Registration2023Controller@onlineregistration2023')->name('onlineregistration2023');
+        Route::post('/register/register2023', 'Registration2023Controller@register2023')->name('user.register.register2023');
     });
+
+
+
 
     Route::group(['prefix' => 'user', 'middleware' => 'auth:web'], function () {
 
@@ -176,6 +182,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'guest:admin'], function () {
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin', 'checkstatus']], function () {
+
+    // registration and payments
+    Route::get('/registerMembers2023', 'Registration2023Controller@registerMembers2023')->name('admin.registerMembers2023');
+    Route::get('/approved/{id}', 'Registration2023Controller@approved')->name('admin.approved');
+
 
     //Admin Logout Route
     Route::get('/logout', 'Admin\LoginController@logout')->name('admin.logout');

@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="page-title-item text-center">
-                        <h2 class="title">{{ __('Register') }}</h2>
+                        <h2 class="title">{{ __('Registration for membership') }}</h2>
                         <ul class="breadcrumb-nav">
                             <li class=""><a href="{{ route('front.index') }}">{{ __('Home') }} </a></li>
                             <li class="active" aria-current="page">{{ __('Register') }}</li>
@@ -49,7 +49,7 @@
                     <div class="sign-form">
                         <div class="heading">
                             <h4 class="title">
-                                {{ __('Register') }}
+                                {{ __('Registration for membership') }}
                             </h4>
                             <p class="subtitle">
                                 {{ __('Register your account to continue.') }}
@@ -156,8 +156,10 @@
                                     @endif
                                 </div>
                                 <div class="col-md-6 mt-2">
+
                                     <input class="form-control" type="file" name="profilepic"
                                         value="{{ old('profilepic') }}">
+                                    <span style="font-size: 9px">Profile image (Maximum 1MB)</span>
                                     @if ($errors->has('profilepic'))
                                         <p class="m-1 text-danger">{{ $errors->first('profilepic') }}</p>
                                     @endif
@@ -264,35 +266,35 @@
                 </div>
             </div>
         </div>
+    </section>
 
+    <script type="text/javascript">
+        function usernamevalidation(username) {
+            $.ajax({
+                "url": "{{ route('user.check_username') }}",
+                "type": "GET",
+                cache: false,
+                data: {
+                    // "_token": "{{ csrf_token() }}",
+                    username: username
+                },
+                success: function(data) {
+                    // alert(data);
+                    if (data == 1) {
+                        $('#usernamecheck').show();
+                        $('.checkbutton').attr('disabled', 'disabled');
+                    } else {
 
-        <script type="text/javascript">
-            function usernamevalidation(username) {
-                $.ajax({
-                    "url": "{{ route('user.check_username') }}",
-                    "type": "GET",
-                    cache: false,
-                    data: {
-                        // "_token": "{{ csrf_token() }}",
-                        username: username
-                    },
-                    success: function(data) {
-                        // alert(data);
-                        if (data == 1) {
-                            $('#usernamecheck').show();
-                            $('.checkbutton').attr('disabled', 'disabled');
-                        } else {
-
-                            $('#usernamecheck').hide();
-                            $('.checkbutton').removeAttr('disabled');
-                        }
-
+                        $('#usernamecheck').hide();
+                        $('.checkbutton').removeAttr('disabled');
                     }
-                });
 
-            }
-        </script>
+                }
+            });
 
-        <!-- Register Area End -->
+        }
+    </script>
 
-    @endsection
+    <!-- Register Area End -->
+
+@endsection
