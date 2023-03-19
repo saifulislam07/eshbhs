@@ -57,9 +57,16 @@
                         </div>
 
                         <div class="heading">
-                            @if (session()->has('message'))
+                            @if (session()->has('success'))
                                 <div class="alert alert-success">
-                                    {{ session()->get('message') }}
+                                    {{ session()->get('success') }}
+                                </div>
+                            @endif
+                        </div>
+                        <div class="heading">
+                            @if (session()->has('amountError'))
+                                <div class="alert alert-danger">
+                                    {{ session()->get('amountError') }}
                                 </div>
                             @endif
                         </div>

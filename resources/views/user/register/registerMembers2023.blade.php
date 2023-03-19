@@ -67,6 +67,8 @@
                                 <tbody>
                                     @php
                                         $totalAmount = 0;
+                                        $approvedAmount = 0;
+                                        $pendingAmount = 0;
                                         $i = 1;
                                     @endphp
                                     @foreach ($allregisters as $key => $user)
@@ -89,6 +91,12 @@
 
                                             @php
                                                 $totalAmount += $user->amount;
+                                                if ($user->status == 'Confirm') {
+                                                    $approvedAmount += $user->amount;
+                                                } elseif ($user->status == 'Pending') {
+                                                    $pendingAmount += $user->amount;
+                                                }
+                                                
                                             @endphp
                                             <td>
                                                 @if ($user->status == 'Confirm')
@@ -114,7 +122,17 @@
                                         </tr>
                                     @endforeach
                                     <tr>
-                                        <th colspan="14" style="text-align: center">Total</td>
+                                        <th colspan="10" style="text-align: center">Total</th>
+                                        <th colspan="2" style="text-align: center">
+                                            @php
+                                                echo '<b style= "color: green">Confirmed : ' . $approvedAmount . '<b>';
+                                            @endphp
+                                        </th>
+                                        <th colspan="2" style="text-align: center">
+                                            @php
+                                                echo '<b style= "color: red">Pending : ' . $pendingAmount . '<b>';
+                                            @endphp
+                                        </th>
                                         <th>
                                             @php
                                                 echo 'TK. ' . $totalAmount;

@@ -67,6 +67,8 @@
                                 <tbody>
                                     <?php
                                         $totalAmount = 0;
+                                        $approvedAmount = 0;
+                                        $pendingAmount = 0;
                                         $i = 1;
                                     ?>
                                     <?php $__currentLoopData = $allregisters; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -89,6 +91,12 @@
 
                                             <?php
                                                 $totalAmount += $user->amount;
+                                                if ($user->status == 'Confirm') {
+                                                    $approvedAmount += $user->amount;
+                                                } elseif ($user->status == 'Pending') {
+                                                    $pendingAmount += $user->amount;
+                                                }
+                                                
                                             ?>
                                             <td>
                                                 <?php if($user->status == 'Confirm'): ?>
@@ -114,10 +122,20 @@
                                         </tr>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     <tr>
-                                        <th colspan="14" style="text-align: center">Total</td>
+                                        <th colspan="10" style="text-align: center">Total</th>
+                                        <th colspan="2" style="text-align: center">
+                                            <?php
+                                                echo '<b style= "color: green">Confirmed : ' . $approvedAmount . '<b>';
+                                            ?>
+                                        </th>
+                                        <th colspan="2" style="text-align: center">
+                                            <?php
+                                                echo '<b style= "color: red">Pending : ' . $pendingAmount . '<b>';
+                                            ?>
+                                        </th>
                                         <th>
                                             <?php
-                                                echo 'TK.' . $totalAmount;
+                                                echo 'TK. ' . $totalAmount;
                                             ?>
                                         </th>
                                         <th colspan="2">

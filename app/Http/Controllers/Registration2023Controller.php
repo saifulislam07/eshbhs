@@ -20,7 +20,7 @@ class Registration2023Controller extends Controller
 
     public function registerMembers2023()
     {
-        $allregisters = registration2023::get();
+        $allregisters = registration2023::orderBy('id', 'desc')->get();
         return view('user.register.registerMembers2023', compact('allregisters'));
     }
 
@@ -63,6 +63,14 @@ class Registration2023Controller extends Controller
         ]);
 
 
+
+        $calculateAmount = 510 * $request->total_members;
+        if ($calculateAmount > $request->amount) {
+            // dd($calculateAmount);
+            return redirect()->back()->with('amountError', 'Please input the valid amount');
+        }
+        //   dd($calculateAmount);
+
         $user = new registration2023();
         $user->name = $request->name;
         $user->fathersname = $request->fathersname;
@@ -82,9 +90,7 @@ class Registration2023Controller extends Controller
         $user->total_members = $request->total_members;
         $user->save();
 
-        return back();
-
-        return redirect()->back()->withErrors(['success', 'The Message']);
+        return redirect()->back()->with('success', 'Your information will be checked and confirmation will be given by call or message.');
     }
     /**
      * Show the form for creating a new resource.

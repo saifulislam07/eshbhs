@@ -59,9 +59,17 @@
                         </div>
 
                         <div class="heading">
-                            <?php if(session()->has('message')): ?>
+                            <?php if(session()->has('success')): ?>
                                 <div class="alert alert-success">
-                                    <?php echo e(session()->get('message')); ?>
+                                    <?php echo e(session()->get('success')); ?>
+
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="heading">
+                            <?php if(session()->has('amountError')): ?>
+                                <div class="alert alert-danger">
+                                    <?php echo e(session()->get('amountError')); ?>
 
                                 </div>
                             <?php endif; ?>
